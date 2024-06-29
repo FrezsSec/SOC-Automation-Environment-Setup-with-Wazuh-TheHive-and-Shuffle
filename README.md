@@ -27,7 +27,7 @@ The network diagram depicts a logical setup with the following components:
 
 In this section, we will cover the installation steps for each component of our SOC automation setup.
 
-## 1. Installing Windows 10 with Sysmon
+## 1. Creating a Windows 10 Virtual Machine
 
 ### Prerequisites
 - VirtualBox 
@@ -48,3 +48,20 @@ In this section, we will cover the installation steps for each component of our 
 
 7. Start the virtual machine and then click "Install Now". When presented with the "Activate Windows" screen, select "I don't have a product key" and choose "Windows 10 Pro" for the edition. Next, accept the license terms. Then, select "Custom: Install Windows only (advanced)" and click "Next". Windows will now begin the installation process.
 
+## 2. Installing Sysmon on Windows 10
+
+**Steps:**
+
+1. On your Windows virtual machine, open a web browser and navigate to the official Microsoft Sysinternals [website](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon).
+2. Download Sysmon from the website.
+3. Navigate to the [GitHub page](https://github.com/olafhartong/sysmon-modular) where `sysmonconfig.xml` is available and download it to your Windows virtual machine.
+4. Locate the downloaded Sysmon ZIP file on your Windows virtual machine and extract its contents.
+5. Open Command Prompt with administrative privileges on the Windows virtual machine.
+6. Navigate to the directory where Sysmon is extracted.
+7. Run the command to install Sysmon with a basic configuration:
+
+``` sysmon -accepteula -i sysmonconfig.xml ```
+
+Replace `sysmonconfig.xml` with your specific configuration file if needed.
+
+7. Verify that Sysmon has been installed correctly by checking its status or configuration.
