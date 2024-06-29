@@ -56,12 +56,16 @@ In this section, we will cover the installation steps for each component of our 
 2. Download Sysmon from the website.
 3. Navigate to the [GitHub page](https://github.com/olafhartong/sysmon-modular) where `sysmonconfig.xml` is available and download it to your Windows virtual machine.
 4. Locate the downloaded Sysmon ZIP file and extract its contents.
-5. Open Command Prompt with administrative privileges.
+5. Open Powershell with administrative privileges.
 6. Navigate to the directory where Sysmon is extracted.
-7. Run the command to install Sysmon with a basic configuration:
+7. Place the `sysmonconfig.xml` file in the same directory where Sysmon is extracted.
+8. Run the command to install Sysmon with a basic configuration:
 
-``` sysmon -accepteula -i sysmonconfig.xml ```
+``` .\Sysmon64.exe -i .\sysmonconfig.xml ```
 
-Replace `sysmonconfig.xml` with your specific configuration file if needed.
+![9](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/37251597-a518-4c87-849a-5f4a5795a9d4)
 
-7. Verify that Sysmon has been installed correctly by checking its status or configuration.
+
+7. Verify that Sysmon has been installed correctly by checking the Services application.
+
+## 3. Setting Up Wazuh
