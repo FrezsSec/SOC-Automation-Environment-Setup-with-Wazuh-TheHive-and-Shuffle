@@ -55,8 +55,8 @@ In this section, we will cover the installation steps for each component of our 
 1. On your Windows virtual machine, open a web browser and navigate to the official Microsoft Sysinternals [website](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon).
 2. Download Sysmon from the website.
 3. Navigate to the [GitHub page](https://github.com/olafhartong/sysmon-modular) where `sysmonconfig.xml` is available and download it to your Windows virtual machine.
-4. Locate the downloaded Sysmon ZIP file on your Windows virtual machine and extract its contents.
-5. Open Command Prompt with administrative privileges on the Windows virtual machine.
+4. Locate the downloaded Sysmon ZIP file and extract its contents.
+5. Open Command Prompt with administrative privileges.
 6. Navigate to the directory where Sysmon is extracted.
 7. Run the command to install Sysmon with a basic configuration:
 
