@@ -1,1 +1,1 @@
-# SOC-Automation-Project-Home-Lab-
+# SOC-Automation-Project-Home-Lab
