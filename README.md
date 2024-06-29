@@ -1,1 +1,1 @@
-# SOC-Automation-Project-Home-Lab
+# Setting Up SOC Automation with Wazuh, TheHive, and Shuffle
