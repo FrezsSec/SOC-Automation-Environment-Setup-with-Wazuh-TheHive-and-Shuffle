@@ -113,3 +113,13 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 - Select your Wazuh server from the list of droplets.
 
 ![18](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/8c3546b3-f9dc-418d-8327-fc6558424ef9)
+
+- Then Click on "Networking" and scroll down to "Firewalls." Click "Edit" and select the firewall you created earlier.
+- Under "Firewall," click on "Droplets" and then "Add Droplet."
+
+![19](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/74b5059e-7043-4909-a170-9d2ab07dd5c2)
+
+![22](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4fc45d7f-bf5b-46e7-9264-2e503852567b)
+
+
+
