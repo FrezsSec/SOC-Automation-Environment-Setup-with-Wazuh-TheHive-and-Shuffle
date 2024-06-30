@@ -121,5 +121,7 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 
 ![22](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4fc45d7f-bf5b-46e7-9264-2e503852567b)
 
+6. SSH into Your Wazuh Server: Open PowerShell on your local machine and execute the following command to SSH into your Wazuh server:
 
+  ```ssh root@your_server_ip```
 
