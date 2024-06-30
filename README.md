@@ -124,4 +124,23 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 6. SSH into Your Wazuh Server: Open PowerShell on your local machine and execute the following command to SSH into your Wazuh server:
 
   ```ssh root@your_server_ip```
+  
+7.    Once connected to your virtual machine via SSH, you can start by updating and upgrading the system. Since we are logged in as root, execute the following commands in your terminal:
 
+```apt-get update && apt-get upgrade -y```
+
+![23](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ec716b21-296d-4c26-8ae0-2adafff14f05)
+
+8. Once the update and upgrade process is complete, you can begin the installation of Wazuh. To get started with Wazuh, run the following curl command to download and execute the installation script:
+
+ ```curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh && sudo bash ./wazuh-install.sh -a ```
+
+![24](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/380964ac-2a15-49d3-8675-bf778b358900)
+
+9. Once the installation is complete, it provides a username and password to access the Wazuh Dashboard. Make sure to copy the username and your password, as you will need them to log in to your Wazuh dashboard. The installation summary will look something like this:
+
+```INFO: - - Summary - -
+INFO: You can access the web interface https://<wazuh-dashboard-ip>
+ User: admin
+ Password: <ADMIN_PASSWORD>
+INFO: Installation finished.```
