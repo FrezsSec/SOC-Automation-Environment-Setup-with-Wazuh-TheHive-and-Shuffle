@@ -129,7 +129,7 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 
 ```apt-get update && apt-get upgrade -y```
 
-![23](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ec716b21-296d-4c26-8ae0-2adafff14f05)
+![h](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ce30915e-1ba8-4151-b16b-a831a0a25e3c)
 
 8. Once the update and upgrade process is complete, you can begin the installation of Wazuh. To get started with Wazuh, run the following curl command to download and execute the installation script:
 
@@ -143,4 +143,9 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 INFO: You can access the web interface https://<wazuh-dashboard-ip>
  User: admin
  Password: <ADMIN_PASSWORD>
-INFO: Installation finished.```
+INFO: Installation finished.
+```
+
+10. Log into Wazuh: Note your server's public IP address from the DigitalOcean dashboard. Open a new browser tab and go to `https://<your-public-ip>` (make sure to use HTTPS). If you see a security certificate warning, click "Advanced" and then "Proceed." On the Wazuh login page, enter admin as the username and paste the password you saved earlier. You should now be logged into the Wazuh dashboard.
+
+![j](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ca786f4c-7bb9-4cfb-8f70-6f8795277278)
