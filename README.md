@@ -74,7 +74,7 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 
 **Steps:**
 
-1.I'll start by building our Wazuh server. To do this, click on the "Create" button in the top right corner on DigitalOcean. Select "Droplet" from the dropdown menu. Next, choose the region closest to your location.
+1. I'll start by building our Wazuh server. To do this, click on the "Create" button in the top right corner on DigitalOcean. Select "Droplet" from the dropdown menu. Next, choose the region closest to your location.
 
 ![10](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/8f50caa0-e4e1-451a-aff6-3c44704f7193)
 
@@ -86,6 +86,10 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 
 ![13](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/cce15ccf-f21f-4017-ac52-57e3e4d79e62)
 
+3. Scroll down and choose either to create a password or an SSH key, depending on your preference. I'll opt for creating a password. Remember to use a password manager to keep your credentials secure, especially since they will be exposed to the internet eventually.
 
+![14](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a9f7b022-a75a-4172-b883-d44b2e687752)
 
+4. Scroll down to change your hostname. I changed mine to "wazuh." After that, click on "Create Droplet."
 
+![15](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/775764aa-6baa-48e9-a88d-2267f0fcb6f6)
