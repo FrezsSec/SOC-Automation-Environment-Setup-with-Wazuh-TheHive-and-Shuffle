@@ -266,18 +266,18 @@ These parameters in the Cassandra configuration file (cassandra.yaml) are set to
 - Since we've downloaded TheHive packages, we need to remove old files. First, let's stop the Cassandra service to proceed safely:
 
  ```sh
-sudo systemctl stop cassandra.service
+ sudo systemctl stop cassandra.service
 ```
 - Next, delete the existing Cassandra data:
  ```sh
-sudo rm -rf /var/lib/cassandra/*
-```
+  sudo rm -rf /var/lib/cassandra/*
+ ```
 - Finally, restart the Cassandra service to apply the changes:
  ```sh
-sudo systemctl start cassandra.service
-```
+  sudo systemctl start cassandra.service
+ ```
 - To check if Cassandra is running, use the following command:
 
-```bash
-sudo systemctl status cassandra.service
-```
+ ```bash
+  sudo systemctl status cassandra.service
+ ```
