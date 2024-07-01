@@ -253,7 +253,31 @@ To set it up:
 
 ![30](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/38659856-2d17-4b2f-b6ea-9148dee4130b)
 
+- Set the `rpc_address` to the public IP address of TheHive (same IP as `listen_address`).
 
-- Set the `rpc_address` parameter to the IP address of the node to enable clients to connect to the Cassandra cluster (same IP as `listen_address`).
+![31](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/298ab29b-05be-4c70-9924-d9f3a9109359)
 
-- The `seeds` parameter should contain the IP address(es) of the seed node(s) in the cluster.
+- Set the `seeds` parameter to the public IP address of TheHive.
+
+![32](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e3ac0c9e-242c-4fc0-8cf1-0a44dea20fb3)
+
+These parameters in the Cassandra configuration file (cassandra.yaml) are set to the public IP address of TheHive server to ensure that Cassandra can communicate with other nodes in the cluster and with clients that connect to it.
+- After applying the configurations, save the modifications and close the file.
+- Since we've downloaded TheHive packages, we need to remove old files. First, let's stop the Cassandra service to proceed safely:
+
+ ```sh
+sudo systemctl stop cassandra.service
+```
+- Next, delete the existing Cassandra data:
+ ```sh
+sudo rm -rf /var/lib/cassandra/*
+```
+- Finally, restart the Cassandra service to apply the changes:
+ ```sh
+sudo systemctl start cassandra.service
+```
+- To check if Cassandra is running, use the following command:
+
+```bash
+sudo systemctl status cassandra.service
+```
