@@ -149,3 +149,89 @@ INFO: Installation finished.
 10. Log into Wazuh: Note your server's public IP address from the DigitalOcean dashboard. Open a new browser tab and go to `https://<your-public-ip>` (make sure to use HTTPS). If you see a security certificate warning, click "Advanced" and then "Proceed." On the Wazuh login page, enter admin as the username and paste the password you saved earlier. You should now be logged into the Wazuh dashboard.
 
 ![j](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ca786f4c-7bb9-4cfb-8f70-6f8795277278)
+
+## 4. TheHive Installation
+
+With our client machine and Wazuh up and running, we can proceed to install TheHive on another droplet. We'll use Ubuntu 22.04 for this installation.
+
+**Steps:**
+
+1. **Create and Configure Droplet:**
+   - Click on the "Create" button in the top right corner of the DigitalOcean dashboard. Select "Droplet" from the dropdown menu.
+   - Choose the region closest to you.
+   - Select Ubuntu 22.04 as the operating system.
+   - Ensure the droplet configuration includes the necessary resources (e.g., CPU, RAM, storage), similar to Wazuh.
+   - use a password or SSH key.
+   - Set the hostname to "thehive."
+   - Click "Create Droplet."
+
+![26](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/cf7364ea-e517-473d-9848-6f9fe01a39fa)
+
+2. **Add Droplet to Firewall:**
+   - Click on "thehive" and Navigate to "Networking" in the left-hand menu.
+   - Scroll down to "Firewalls" and click on "Edit."
+   - Click on your existing firewall.
+   - Go to the "Droplets" tab and click "Add Droplet."
+   - Select "TheHive" droplet and click "Add Droplet."
+  
+Now both TheHive and Wazuh are being protected by the firewall.
+
+![28](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0f88d93b-b2d0-4b49-ba3a-9eee38b3890a)
+
+
+3. **SSH into TheHive:**
+   - Open a new terminal or PowerShell window.
+   - SSH into the new droplet using the command:
+     ```sh
+     ssh root@<thehive-public-ip>
+     ```
+
+4. **Update and Upgrade:**
+   - Once logged in, update and upgrade the system:
+     ```sh
+     apt-get update && apt-get upgrade -y
+     ```
+5. **Install Necessary Dependencies:**
+   - Run the following command to install the necessary dependencies:
+     ```sh
+     apt install wget gnupg apt-transport-https git ca-certificates ca-certificates-java curl  software-properties-common python3-pip lsb-release
+     ```
+
+6. **Install Java:**
+   - Run these commands to install Java:
+     ```sh
+     wget -qO- https://apt.corretto.aws/corretto.key | sudo gpg --dearmor  -o /usr/share/keyrings/corretto.gpg
+     echo "deb [signed-by=/usr/share/keyrings/corretto.gpg] https://apt.corretto.aws stable main" |  sudo tee -a /etc/apt/sources.list.d/corretto.sources.list
+     sudo apt update
+     sudo apt install java-common java-11-amazon-corretto-jdk
+     echo JAVA_HOME="/usr/lib/jvm/java-11-amazon-corretto" | sudo tee -a /etc/environment 
+     export JAVA_HOME="/usr/lib/jvm/java-11-amazon-corretto"
+     ```
+
+7. **Install Cassandra:**
+   - Run these commands to install Cassandra:
+     ```sh
+     wget -qO -  https://downloads.apache.org/cassandra/KEYS | sudo gpg --dearmor  -o /usr/share/keyrings/cassandra-archive.gpg
+     echo "deb [signed-by=/usr/share/keyrings/cassandra-archive.gpg] https://debian.cassandra.apache.org 40x main" |  sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
+     sudo apt update
+     sudo apt install cassandra
+     ```
+
+8. **Install Elasticsearch:**
+   - Run these commands to install Elasticsearch:
+     ```sh
+     wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch |  sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+     sudo apt-get install apt-transport-https
+     echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" |  sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+     sudo apt update
+     sudo apt install elasticsearch
+     ```
+
+9. **Install TheHive:**
+   - Run these commands to install Elasticsearch:
+     ```sh
+     wget -O- https://archives.strangebee.com/keys/strangebee.gpg | sudo gpg --dearmor -o /usr/share/keyrings/strangebee-archive-keyring.gpg
+     echo 'deb [signed-by=/usr/share/keyrings/strangebee-archive-keyring.gpg] https://deb.strangebee.com thehive-5.2 main' | sudo tee -a /etc/apt/sources.list.d/strangebee.list
+     sudo apt-get update
+     sudo apt-get install -y thehive
+      ```
