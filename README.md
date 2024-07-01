@@ -235,3 +235,25 @@ Now both TheHive and Wazuh are being protected by the firewall.
      sudo apt-get update
      sudo apt-get install -y thehive
       ```
+### 4.1 TheHive Configuration     
+To begin, we need to set up Cassandra, which is the database system that TheHive uses.
+To set it up:
+
+- Find the Cassandra settings file at `/etc/cassandra/cassandra.yaml`
+- Open this file using nano (a text editor):
+ ```sh
+  sudo nano /etc/cassandra/cassandra.yaml
+  ```
+- In the file, look for `cluster_name`. Change `cluster_name` to a name you choose.
+
+![29](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/66a1028a-9288-4596-851d-c0c9e8fa174c)
+
+- Set the `listen_address` parameter to the public IP address of TheHive.
+**Note:** To find these parameters quickly, just Ctrl + W and write the parameter name.
+
+![30](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/38659856-2d17-4b2f-b6ea-9148dee4130b)
+
+
+- Set the `rpc_address` parameter to the IP address of the node to enable clients to connect to the Cassandra cluster (same IP as `listen_address`).
+
+- The `seeds` parameter should contain the IP address(es) of the seed node(s) in the cluster.
