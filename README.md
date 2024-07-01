@@ -294,34 +294,30 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
 
    To configure Elasticsearch, follow these steps:
 
-    - Locate the Elasticsearch configuration file at `/etc/elasticsearch/elasticsearch.yml`. Open this file using a text editor:
+    - Locate the Elasticsearch configuration file at `/etc/elasticsearch/elasticsearch.yml`. Open this file using a text editor
+    - Set the `cluster_name` parameter to your desired name. Remove the comment (#) from the line.
+    - Set the `node.name` or leave the value as `node-1`. Remove the comment (#).
+    - Set the `network.host`. Remove the comment (#) and set the value to the public IP address of TheHive server.
+    - By default, the HTTP port is set to `9200`. You can either uncomment this line or leave it as it is. Here, we'll uncomment it.
+   
+   To start the Elasticsearch service, it requires either a discovery seed or an initial master node. In this case, we'll configure the cluster:
 
-      ```bash
-      sudo nano /etc/elasticsearch/elasticsearch.yml
-      ```
+    - Uncomment the `cluster.initial_master_nodes` line and set it to `node-1`:
 
-    - Set the `cluster.name`. Remove the comment (`#`) and change the value to `thehive`:
+       ![34](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/b1e0a44a-e6e4-4240-9757-04a3ed06800a)
 
-      ```yaml
-      cluster.name: thehive
-      ```
+      ![35](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0676a15b-4926-445b-8018-b6b0480c645f)
 
-    - Set the `node.name`. Remove the comment and leave the value as `node-1`:
+    - Save the changes and close the file
+    - Start and enable the Elasticsearch service:
+    
+       ```bash
+       sudo systemctl start elasticsearch
+       sudo systemctl enable elasticsearch
+       ```
+    - To check if Elasticsearch is running, use the following command:
 
-      ```yaml
-      node.name: node-1
-      ```
-
-    - Set the `network.host`. Remove the comment and set the value to the public IP address of TheHive server:
-
-      ```yaml
-      network.host: <your-public-ip>
-      ```
-
-    - By default, the HTTP port is set to `9200`. You can either uncomment this line or leave it as it is. Here, we'll uncomment it:
-
-      ```yaml
-      http.port: 9200
-      ```
-
-    - After making these changes, save the file and exit the editor.
+       ```sh
+       sudo systemctl status elasticsearch
+       ```
+      
