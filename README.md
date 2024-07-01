@@ -237,47 +237,91 @@ Now both TheHive and Wazuh are being protected by the firewall.
       ```
 ### 4.1 TheHive Configuration     
 To begin, we need to set up Cassandra, which is the database system that TheHive uses.
-To set it up:
 
-- Find the Cassandra settings file at `/etc/cassandra/cassandra.yaml`
-- Open this file using nano (a text editor):
- ```sh
-  sudo nano /etc/cassandra/cassandra.yaml
-  ```
-- In the file, look for `cluster_name`. Change `cluster_name` to a name you choose.
+1. **Configure Cassandra:**
 
-![29](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/66a1028a-9288-4596-851d-c0c9e8fa174c)
+    - Find the Cassandra settings file at `/etc/cassandra/cassandra.yaml`
+    - Open this file using nano (a text editor):
 
-- Set the `listen_address` parameter to the public IP address of TheHive.
-**Note:** To find these parameters quickly, just Ctrl + W and write the parameter name.
+      ```bash
+      sudo nano /etc/cassandra/cassandra.yaml
+      ```
+    - In the file, look for `cluster_name`. Change `cluster_name` to a name you choose.
 
-![30](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/38659856-2d17-4b2f-b6ea-9148dee4130b)
+    ![29](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/66a1028a-9288-4596-851d-c0c9e8fa174c)
 
-- Set the `rpc_address` to the public IP address of TheHive (same IP as `listen_address`).
+    - Set the `listen_address` parameter to the public IP address of TheHive. **Note:** To find these parameters quickly, just Ctrl + W and write the parameter name.
 
-![31](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/298ab29b-05be-4c70-9924-d9f3a9109359)
 
-- Set the `seeds` parameter to the public IP address of TheHive.
+    ![30](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/38659856-2d17-4b2f-b6ea-9148dee4130b)
 
-![32](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e3ac0c9e-242c-4fc0-8cf1-0a44dea20fb3)
+   - Set the `rpc_address` to the public IP address of TheHive (same IP as `listen_address`).
 
-These parameters in the Cassandra configuration file (cassandra.yaml) are set to the public IP address of TheHive server to ensure that Cassandra can communicate with other nodes in the cluster and with clients that connect to it.
-- After applying the configurations, save the modifications and close the file.
-- Since we've downloaded TheHive packages, we need to remove old files. First, let's stop the Cassandra service to proceed safely:
+   ![31](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/298ab29b-05be-4c70-9924-d9f3a9109359)
 
- ```sh
- sudo systemctl stop cassandra.service
-```
-- Next, delete the existing Cassandra data:
- ```sh
-  sudo rm -rf /var/lib/cassandra/*
- ```
-- Finally, restart the Cassandra service to apply the changes:
- ```sh
-  sudo systemctl start cassandra.service
- ```
-- To check if Cassandra is running, use the following command:
+   - Set the `seeds` parameter to the public IP address of TheHive.
 
- ```bash
-  sudo systemctl status cassandra.service
- ```
+   ![32](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e3ac0c9e-242c-4fc0-8cf1-0a44dea20fb3)
+
+   These parameters in the Cassandra configuration file (`cassandra.yaml`) are set to the public IP address of TheHive server to ensure that Cassandra can communicate with other nodes in the cluster and with clients that connect to it.
+
+    - After applying the configurations, save the modifications and close the file.
+    - Since we've downloaded TheHive packages, we need to remove old files. First, let's stop the Cassandra service to proceed safely:
+
+      ```bash
+      sudo systemctl stop cassandra.service
+      ```
+
+    - Next, delete the existing Cassandra data:
+
+      ```bash
+      sudo rm -rf /var/lib/cassandra/*
+      ```
+
+    - Finally, restart the Cassandra service to apply the changes:
+
+      ```bash
+      sudo systemctl start cassandra.service
+      ```
+
+    - To check if Cassandra is running, use the following command:
+
+      ```bash
+      sudo systemctl status cassandra.service
+      ```
+
+2. **Configure Elasticsearch:**
+
+   To configure Elasticsearch, follow these steps:
+
+    - Locate the Elasticsearch configuration file at `/etc/elasticsearch/elasticsearch.yml`. Open this file using a text editor:
+
+      ```bash
+      sudo nano /etc/elasticsearch/elasticsearch.yml
+      ```
+
+    - Set the `cluster.name`. Remove the comment (`#`) and change the value to `thehive`:
+
+      ```yaml
+      cluster.name: thehive
+      ```
+
+    - Set the `node.name`. Remove the comment and leave the value as `node-1`:
+
+      ```yaml
+      node.name: node-1
+      ```
+
+    - Set the `network.host`. Remove the comment and set the value to the public IP address of TheHive server:
+
+      ```yaml
+      network.host: <your-public-ip>
+      ```
+
+    - By default, the HTTP port is set to `9200`. You can either uncomment this line or leave it as it is. Here, we'll uncomment it:
+
+      ```yaml
+      http.port: 9200
+      ```
+
+    - After making these changes, save the file and exit the editor.
