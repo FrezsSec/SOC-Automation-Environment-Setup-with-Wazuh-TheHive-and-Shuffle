@@ -361,5 +361,15 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
 
         ![2024-07-02 11_24_46-Window](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/746e4121-58b2-470f-a11b-0422485f3140)
 
-     Note that for TheHive to start, all three services—Cassandra, Elasticsearch, and TheHive—should be running.
+    - Note that for TheHive to start, all three services—Cassandra, Elasticsearch, and TheHive—should be running.
+    - If you encounter an error while logging in to TheHive (authentication failed), check the status of Elasticsearch:
 
+       ```sh
+       sudo systemctl status elasticsearch
+       ```
+    - If Elasticsearch is down, you may need to adjust its JVM options. Open the JVM options file /etc/elasticsearch/jvm.options.d/jvm.options (create it if it doesn't exist) and add the following lines:
+       ```sh
+      -Dlog4j2.formatMsgNoLookups=true
+      -Xms2g
+      -Xmx2g
+       ```
