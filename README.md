@@ -248,20 +248,21 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
       ```
     - In the file, look for `cluster_name`. Change `cluster_name` to a name you choose.
 
-      ![29](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/66a1028a-9288-4596-851d-c0c9e8fa174c)
+      ![j](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/eae35060-393b-4547-a832-6897aeed5cf7)
+
 
     - Set the `listen_address` parameter to the public IP address of TheHive. **Note:** To find these parameters quickly, just Ctrl + W and write the parameter name.
 
-
-      ![30](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/38659856-2d17-4b2f-b6ea-9148dee4130b)
+      ![jj](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0ad95a9f-8cbd-41ed-9746-25e9a4d5faae)
 
    - Set the `rpc_address` to the public IP address of TheHive (same IP as `listen_address`).
 
-     ![31](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/298ab29b-05be-4c70-9924-d9f3a9109359)
+      ![jjj](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4471011f-d41b-4bcb-a600-b15db799286e)
+
 
    - Set the `seeds` parameter to the public IP address of TheHive.
 
-     ![32](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e3ac0c9e-242c-4fc0-8cf1-0a44dea20fb3)
+      ![jjjj](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/2ba7f221-c375-476e-89b4-23657f64ef01)
 
    These parameters in the Cassandra configuration file (`cassandra.yaml`) are set to the public IP address of TheHive server to ensure that Cassandra can communicate with other nodes in the cluster and with clients that connect to it.
 
@@ -339,4 +340,26 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
        ```
      
          ![38](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/d9dd5e45-4a2e-447a-be81-c5a1772a086e)
+
+    - Now we're ready to configure TheHive's settings file. Locate the configuration file at `/etc/thehive/application.conf`.
+    - Change the hostname to the public IP address of TheHive, the cluster-name to your previously chosen name, and application.baseurl to `http://<public-ip-of-thehive>`.
+   
+         ![39](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/453fd572-bf84-400d-82e2-e873f3a98117)
+
+    - Now start and enable TheHive:
+       ```sh
+       sudo systemctl start thehive
+       sudo systemctl enable thehive
+       sudo systemctl status thehive
+       ```
+
+        ![38](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a2315401-44ec-4bfa-827e-9be906cc850a)
+
+    - Now we can access TheHive by navigating to `http://YOUR_THEHIVE_ADDRESS:9000`. Here are the default credentials for TheHive:
+      "Username: admin@thehive.local
+       Password: secret"
+
+        ![2024-07-02 11_24_46-Window](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/746e4121-58b2-470f-a11b-0422485f3140)
+
+     Note that for TheHive to start, all three services—Cassandra, Elasticsearch, and TheHive—should be running.
 
