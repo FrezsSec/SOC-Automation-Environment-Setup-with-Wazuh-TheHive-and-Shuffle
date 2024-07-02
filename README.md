@@ -76,50 +76,48 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 
 1. I'll start by building our Wazuh server. To do this, click on the "Create" button in the top right corner on DigitalOcean. Select "Droplet" from the dropdown menu. Next, choose the region closest to your location.
 
-![10](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/8f50caa0-e4e1-451a-aff6-3c44704f7193)
-
-![11](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f461e4fc-18e4-41c2-8b8b-a9e26bf6dec2)
+  ![10](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a7f54132-b13b-495c-ac35-9d93b43c0b9c)
 
 2. Select Ubuntu as the operating system, and choose version 22.04. For the droplet type, select the "Basic" option with the "Premium Intel" CPU. Ensure that the specifications include at least 8 GB of RAM and 50 GB of drive space. I chose the $48 per month plan.
 
-![12](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e1d5b458-efc8-4044-81c5-5ed516c9c562)
+  ![12](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4a56e394-aece-4876-bd92-b255ad7625d8)
 
-![13](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/cce15ccf-f21f-4017-ac52-57e3e4d79e62)
+  ![13](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/3a75150a-5cdb-4345-83fc-074efe8a0e2d)
 
 3. Scroll down and choose either to create a password or an SSH key, depending on your preference. I'll opt for creating a password. Remember to use a password manager to keep your credentials secure, especially since they will be exposed to the internet eventually.
 
-![14](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a9f7b022-a75a-4172-b883-d44b2e687752)
+  ![14](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a404569d-0fd2-426c-b5be-97428dad0ef2)
+
 
 4. Scroll down to change your hostname. I changed mine to "wazuh." After that, click on "Create Droplet."
 
-![15](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/775764aa-6baa-48e9-a88d-2267f0fcb6f6)
-
 5. While your droplet is being created, it's crucial to set up a firewall to protect your server from external threats. Follow these steps:
 
-- Navigate to the "Networking" section on DigitalOcean's dashboard. Click on "Firewalls" and select "Create Firewall."
+   - Navigate to the "Networking" section on DigitalOcean's dashboard. Click on "Firewalls" and select "Create Firewall."
 
-![16](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/8532b385-f490-4747-866c-efd59f7551f8)
+     ![16](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/5f2164f0-6f1f-4f96-aff1-107fe755a107)
 
-- Name your firewall (e.g., "firewall").
-- Under "Inbound Rules," set the firewall rules for incoming traffic. Choose "All TCP" and remove all IPs in the "Sources" field. Add only your public IP address. Obtain your public IP address by visiting "what is my IP address" in a new tab.
-- Repeat the same process for UDP.
 
-![17](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/fead8bb6-9129-439b-a839-54f973a0ab1b)
 
-- Scroll down and click "Create Firewall" to activate it.
+   - Name your firewall (e.g., "firewall").
+   - Under "Inbound Rules," set the firewall rules for incoming traffic. Choose "All TCP" and remove all IPs in the "Sources" field. Add only your public IP address. Obtain your public IP address by visiting "what is my IP address" in a new tab.
+   - Repeat the same process for UDP.
+
+     ![17](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/1691187b-dcf1-4793-a863-370814813031)
+
+
+   - Scroll down and click "Create Firewall" to activate it.
 
 6. After creating your firewall, it's essential to add your virtual machine to it to enhance security. Follow these steps:
-- Navigate to "Droplets" on the left-hand side of the DigitalOcean dashboard.
-- Select your Wazuh server from the list of droplets.
+   
+     - Navigate to "Droplets" on the left-hand side of the DigitalOcean dashboard.
+     - Select your Wazuh server from the list of droplets.
+     - Then Click on "Networking" and scroll down to "Firewalls." Click "Edit" and select the firewall you created earlier.
+     - Under "Firewall," click on "Droplets" and then "Add Droplet."
 
-![18](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/8c3546b3-f9dc-418d-8327-fc6558424ef9)
+   ![22](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f26c376c-30a6-41e0-b2f1-25815be36cc1)
 
-- Then Click on "Networking" and scroll down to "Firewalls." Click "Edit" and select the firewall you created earlier.
-- Under "Firewall," click on "Droplets" and then "Add Droplet."
 
-![19](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/74b5059e-7043-4909-a170-9d2ab07dd5c2)
-
-![22](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4fc45d7f-bf5b-46e7-9264-2e503852567b)
 
 6. SSH into Your Wazuh Server: Open PowerShell on your local machine and execute the following command to SSH into your Wazuh server:
 
