@@ -321,7 +321,22 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
        sudo systemctl status elasticsearch
        ```
 
-      ![36](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/892dca7f-3489-48c2-92ac-b170409715e3)
+       ![36](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/892dca7f-3489-48c2-92ac-b170409715e3)
 
-       
-       
+   
+ 3. **Configure TheHive:**
+
+    -  First ensure that the users and group associated with TheHive have access to the /opt/thp directory:
+       ```sh
+       ls -al /opt/thp
+       ```
+         ![37](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c00ec534-1aa4-4749-83e4-ce801d86ee33)
+
+      
+    - Change the owener to thehive user and thehive group:
+       ```sh
+       chown -R thehive:thehive /opt/thp
+       ```
+     
+         ![38](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/d9dd5e45-4a2e-447a-be81-c5a1772a086e)
+
