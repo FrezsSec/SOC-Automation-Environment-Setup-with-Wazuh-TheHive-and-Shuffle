@@ -371,3 +371,35 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
       -Xms2g
       -Xmx2g
        ```
+
+### 5. Configure Wazuh
+
+To begin, log in to Wazuh. You can find admin credentials in the `wazuh-install-files.tar` file. Follow these steps to extract the credentials and access the Wazuh dashboard:
+
+1. Extract the files from the archive:
+
+   ```sh
+   tar -xvf wazuh-install-files.tar
+   ```
+2. Locate and open the wazuh-passwords.txt file to retrieve the login credentials.
+
+3. Log into Wazuh by navigating to `https://<public-ip-of-wazuh>`.
+4. Click "Add agent" to begin configuring a new Wazuh agent. The Wazuh agent is a critical component of the Wazuh security platform, responsible for collecting and analyzing security-related data from endpoints.
+5. Select "Windows" as the agent type. Assign the server address as the public IP of the Wazuh server. Provide a name for the agent.
+ ![42](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ad58036e-f0ed-4b73-ae5b-766668d16868)
+
+6. Copy the commands provided and paste them into the Windows PowerShell with administrator privileges where you want to install the agent.
+
+   ![43](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/378ef833-abca-4c2d-825c-5f7a34987695)
+
+7. Next, use the command `net start wazuhsvc` to start the Wazuh agent service.
+
+   ![45](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/3a0d425b-afe0-48eb-a3f1-6944fd3783e4)
+
+8. Wazuh agent successfully installed. You can confirm this by navigating to Wazuh Manager → Agents.
+
+   ![46](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ac811bb2-669a-49c8-a109-0240547eea4f)
+
+9. Now click on "Security Events" and start querying more events.
+
+   ![47](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/1729491c-d2ee-4b2d-8291-d539739db6e4)
