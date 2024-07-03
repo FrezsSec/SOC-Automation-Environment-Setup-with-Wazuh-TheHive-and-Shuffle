@@ -490,9 +490,10 @@ For the sake of ingestion:
      ![53](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/1e3b8103-4f13-4418-8744-4f4489543813)
 
 
-4. **Verify Telemetry**:
- - Go to the Wazuh dashboard and search for "mimikatz" to see if any events are logged.
- - Note: You might not see any events because Sysmon events may not trigger alerts or rules in Wazuh by default.
+4. **Verify Telemetry**
+
+    - Go to the Wazuh dashboard and search for "mimikatz" to see if any events are logged.
+    - Note: You might not see any events because Sysmon events may not trigger alerts or rules in Wazuh by default.
 
 ## Configure Wazuh to Log Everything
   1. In the Wazuh manager CLI, create a backup of the `ossec.conf` file located in `/var/ossec/etc/ossec.conf` and save it in your home directory as `ossec-backup.conf`.
@@ -502,6 +503,27 @@ For the sake of ingestion:
  
  3. Restart the Wazuh Manager:
 
-     ```sh
+    ```sh
     systemctl restart wazuh-manager.service
     ```
+4. Enable Archive Logging. The file `archives.log`, `archives.json`, or both will be created in the `/var/ossec/logs/archives/` directory on the Wazuh server. The logs will be placed in these files. To start ingesting these logs, we need to change   our configuration in Filebeat and change the value of `archives: enabled` from `false` to `true`.
+
+    ```sh
+    sudo nano /etc/filebeat/filebeat.yml
+    ```
+
+     ![55](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/3aa59037-1009-4ab4-b438-51a8207e514e)
+
+5. Restart the filebeat service:
+
+   ```sh
+    sudo systemctl restart filebeat
+    ```
+
+## Set Up Wazuh Dashboard
+
+  - Go to the Wazuh Dashboard, click the upper-left menu icon, and navigate to **Stack Management** > **Index Patterns** > **Create index pattern**.
+  - Use `wazuh-archives-*` as the index pattern name, and set `timestamp` in the **Time field** drop-down list and click "create index pattern".
+  - To view the events on the dashboard, click the upper-left menu icon and navigate to **Discover**. Change the index pattern to `wazuh-archives-*`.  
+
+       ![56](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/014cc97d-398a-4c6f-8ae4-710bfeb99597)
