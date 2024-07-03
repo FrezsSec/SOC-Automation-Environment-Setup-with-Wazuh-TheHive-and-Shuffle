@@ -526,4 +526,54 @@ For the sake of ingestion:
   - Use `wazuh-archives-*` as the index pattern name, and set `timestamp` in the **Time field** drop-down list and click "create index pattern".
   - To view the events on the dashboard, click the upper-left menu icon and navigate to **Discover**. Change the index pattern to `wazuh-archives-*`.  
 
-       ![56](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/014cc97d-398a-4c6f-8ae4-710bfeb99597)
+     ![56](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/014cc97d-398a-4c6f-8ae4-710bfeb99597)
+    
+    - Check the Wazuh dashboard for events related to Mimikatz.
+    - Verify the contents of the `archives.log` and `archives.json` files in the `/var/ossec/logs/archives/` directory to ensure that Mimikatz logs are being captured.
+
+    ![57](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4edb6dbe-db1f-44b0-8810-f9ed7e2ef560)
+
+## Creating Alerts
+
+1. **Access the Rules:**
+    - On the Wazuh dashboard, click on the **Home** button.
+    - There will be a drop-down next to it, select **Management** > **Rules**.
+  
+      ![58](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f2bd77b5-2a94-4e37-8d52-baa6e899d927)
+
+    - Click on **Manage rules files** at the top right.
+    - Search for "sysmon" in the search bar.
+    - Open `0800-sysmon_id_1.xml`.
+    - Select the rule ID section to use as a template for our custom rule:
+      ```xml
+      <rule id="92000" level="4">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.parentImage" type="pcre2">(?i)\\(c|w)script\.exe</field>
+        <options>no_full_log</options>
+        <description>Scripting interpreter spawned a new process</description>
+        <mitre>
+          <id>T1059.005</id>
+        </mitre>
+      </rule>
+      ```
+
+1. **Create a Custom Rule:**
+    - Go back and click on **Custom Rules**.
+    - You will see one local rule file `local_rules.xml`. Edit that by clicking on the pencil icon.
+    - Paste the rule we copied into the local rule file (below the existing rules), paying attention to indentation.
+    - Apply the following changes:
+      ```xml
+      <rule id="100002" level="15">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.originalFileName" type="pcre2">(?i)mimikatz\.exe</field>
+        <description>Mimikatz Usage Detected</description>
+        <mitre>
+          <id>T1003</id>
+        </mitre>
+      </rule>
+      ```
+
+**Note:** Custom rule IDs should begin at 100000. The level indicates the severity of events, with level 15 being the highest and most critical. We set the originalFileName to mimikatz.exe, ensuring that even if an attacker renames the mimikatz.exe file, the original name remains unchanged, allowing us to detect it.
+
+3. **Save and Restart the Manager:**
+    - Save the changes and restart the Wazuh manager to apply the new rule.
