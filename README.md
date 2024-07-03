@@ -582,7 +582,8 @@ For the sake of ingestion:
     
     - Rename the `mimikatz.exe` file to something else and run it.
 
-      ![60](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/d1f27b4e-bde0-40d0-8155-8bcf8f93c6a3)
+      ![62](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/b41d0a36-26d0-4015-a80c-521758a5babd)
+
 
     - Check the Wazuh dashboard and see if the alerts are triggered.
    
