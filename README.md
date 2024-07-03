@@ -27,7 +27,7 @@ The network diagram depicts a logical setup with the following components:
 
 In this section, we will cover the installation steps for each component of our SOC automation setup.
 
-## 1. Creating a Windows 10 Virtual Machine
+## Creating a Windows 10 Virtual Machine
 
 ### Prerequisites
 - VirtualBox 
@@ -48,7 +48,7 @@ In this section, we will cover the installation steps for each component of our 
 
 7. Start the virtual machine and then click "Install Now". When presented with the "Activate Windows" screen, select "I don't have a product key" and choose "Windows 10 Pro" for the edition. Next, accept the license terms. Then, select "Custom: Install Windows only (advanced)" and click "Next". Windows will now begin the installation process.
 
-## 2. Installing Sysmon on Windows 10
+## Installing Sysmon on Windows 10
 
 **Steps:**
 
@@ -68,7 +68,7 @@ In this section, we will cover the installation steps for each component of our 
 
 7. Verify that Sysmon has been installed correctly by checking the Services application.
 
-## 3. Setting Up Wazuh
+## Setting Up Wazuh
 
 To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. You can create an account on DigitalOcean using this [link](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa01uVG0yV1VvYU5vVUtyeDdnRWY3MXdqbEdhUXxBQ3Jtc0ttX3p2WDI2anZQTGFiaFUxQzR6bXZPOUNLTDFvbUpLdTZWekc2T2xpN2paTkstU2pXVkN0TFJaNG1OMHVHd0Y4YXFtZUdnd1VTZFBoWlZSazJCMGxwYWREbklvUUgwUmllV2NKVGQ0QmZqeThHLVBnZw&q=https%3A%2F%2Fm.do.co%2Fc%2Fe2ce5a05f701&v=YxpUx0czgx4), which provides $200 in free credit for the first 2 months. (Please note, your bank account will be charged a small verification fee, which will be refunded.)
 
@@ -148,7 +148,7 @@ INFO: Installation finished.
 
 ![j](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ca786f4c-7bb9-4cfb-8f70-6f8795277278)
 
-## 4. TheHive Installation
+## TheHive Installation
 
 With our client machine and Wazuh up and running, we can proceed to install TheHive on another droplet. We'll use Ubuntu 22.04 for this installation.
 
@@ -233,7 +233,7 @@ Now both TheHive and Wazuh are being protected by the firewall.
      sudo apt-get update
      sudo apt-get install -y thehive
       ```
-### 4.1 TheHive Configuration     
+### TheHive Configuration     
 To begin, we need to set up Cassandra, which is the database system that TheHive uses.
 
 1. **Configure Cassandra:**
@@ -372,7 +372,7 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
       -Xmx2g
        ```
 
-### 5. Configure Wazuh
+## Configure Wazuh
 
 To begin, log in to Wazuh. You can find admin credentials in the `wazuh-install-files.tar` file. Follow these steps to extract the credentials and access the Wazuh dashboard:
 
@@ -403,3 +403,90 @@ To begin, log in to Wazuh. You can find admin credentials in the `wazuh-install-
 9. Now click on "Security Events" and start querying more events.
 
    ![47](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/1729491c-d2ee-4b2d-8291-d539739db6e4)
+
+## Generate Telemetry 
+
+We will be generating telemetry from our Windows 10 machine and ingesting it into Wazuh.
+
+**Steps:**
+
+#### 1. Locate the Configuration File
+
+Start with our Windows 10 machine. When we install Wazuh, the configuration file is located under `Program Files (x86)`.
+
+1. Open `Program Files (x86)`.
+2. Navigate to the `ossec-agent` folder.
+3. Locate the file named `ossec.conf`.
+
+#### 2. Edit the Configuration File
+
+1. Right-click `ossec.conf` and open it with Notepad (you may need administrative privileges).
+2. This configuration file contains everything related to Wazuh.
+3. Scroll down to the section titled `log analysis`.
+4. Under the security location, you'll notice some event IDs being excluded by the exclamation mark (`!=`), which means "does not equal to".
+
+#### 4. Add Mimikatz Monitoring
+
+ We want to look for processes that contain Mimikatz. For this, we need either Sysmon installed or Windows Security Event ID 4688 enabled. We will use the Sysmon method since we installed Sysmon previously.
+ 
+1. First back up the `ossec.conf`file.
+2. Scroll down to the `log analysis` section.
+3. Copy one of the local file tags and paste it underneath the `application`.
+4. We need to change the `application` location name to Sysmon’s channel name.
+ 
+```sh
+   <!-- Log analysis -->
+  <localfile>
+    <location>Application</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>Application</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+```
+
+#### 7. Find Sysmon Channel Name
+
+1. Open Windows Event Viewer.
+2. Expand `Applications and Services Logs`.
+3. Expand `Microsoft`, then `Windows`.
+4. Scroll down to `Sysmon`, expand it, and right-click `Operational`.
+5. Select `Properties` to view the full name of the Sysmon channel.
+6. Copy this channel name and paste it into the `application` location in the `ossec.conf` file.
+
+![51](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4e799373-c4e1-4ded-83ff-e7bff331f60d)
+
+
+#### 8. Optional: PowerShell Logs
+
+If you want to ingest PowerShell logs:
+1. In Event Viewer, find `PowerShell` under `Microsoft` and `Windows`.
+2. Right-click `Operational` and select `Properties`.
+3. Copy the channel name and paste it into the `location` tag in `ossec.conf`.
+
+#### 9. Remove Unwanted Log Sources
+
+For the sake of ingestion:
+1. Remove the local file tags for `application`, `security`, and `system`.
+2. Keep only the `active response` tag.
+3. This configuration means that only Sysmon logs will be forwarded to the Wazuh manager.
+
+#### 10. Save and Apply
+
+Save the modified `ossec.conf` file.
+
+# Verify Telemetry
+
+1. Ensure that the telemetry data containing Mimikatz is being ingested into Wazuh.
+2. Confirm this by logging into the Wazuh dashboard and navigating to `Wazuh Manager → Agents`.
+3. You should see the active agent and verify the telemetry data.
+
+# Query Security Events
+
+1. Click on `Security Events` on the Wazuh dashboard.
+2. Start querying and analyzing more events.
+
+By following these steps, you will have configured your Windows 10 machine to send telemetry data, including Sysmon logs, to Wazuh. You will also have learned how to customize log sources and ensure that relevant security events are ingested and monitored effectively.
