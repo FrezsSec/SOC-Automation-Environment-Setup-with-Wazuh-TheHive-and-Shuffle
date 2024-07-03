@@ -577,3 +577,16 @@ For the sake of ingestion:
 
 3. **Save and Restart the Manager:**
     - Save the changes and restart the Wazuh manager to apply the new rule.
+
+4. **Test the Custom Rule:**
+    
+    - Rename the `mimikatz.exe` file to something else and run it.
+
+      ![60](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/d1f27b4e-bde0-40d0-8155-8bcf8f93c6a3)
+
+    - Check the Wazuh dashboard and see if the alerts are triggered.
+   
+      ![61](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f4a38b9f-a1c8-472f-95be-77d93050b4cb)
+
+As you can see, the alert was triggered because our custom rule examines the `originalFileName`.
+  
