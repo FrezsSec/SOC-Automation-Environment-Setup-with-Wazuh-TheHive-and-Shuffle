@@ -457,36 +457,51 @@ Start with our Windows 10 machine. When we install Wazuh, the configuration file
 5. Select `Properties` to view the full name of the Sysmon channel.
 6. Copy this channel name and paste it into the `application` location in the `ossec.conf` file.
 
-![51](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/4e799373-c4e1-4ded-83ff-e7bff331f60d)
+![52](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c48d4859-3d70-4ff9-9fab-e4be3c799aad)
 
-
-#### 8. Optional: PowerShell Logs
-
-If you want to ingest PowerShell logs:
-1. In Event Viewer, find `PowerShell` under `Microsoft` and `Windows`.
-2. Right-click `Operational` and select `Properties`.
-3. Copy the channel name and paste it into the `location` tag in `ossec.conf`.
 
 #### 9. Remove Unwanted Log Sources
 
 For the sake of ingestion:
 1. Remove the local file tags for `application`, `security`, and `system`.
-2. Keep only the `active response` tag.
+2. Keep the `active response` tag.
 3. This configuration means that only Sysmon logs will be forwarded to the Wazuh manager.
+4. Save the modified `ossec.conf` file.
+5. Go to Services application and restart Wazuh
+   
+#### 10. Download and Run Mimikatz
 
-#### 10. Save and Apply
+1. **Disable Windows Defender::**
+    - Type `security` in the Windows search bar and select **Windows Security**.
+    - Dismiss the virus and threat protection prompt.
+    - Under **Manage settings** for virus and threat protection settings, scroll down and click on **Add or remove exclusions**.
+    - Add an exclusion for your Downloads folder by selecting **Folder** and choosing the Downloads folder. Confirm by selecting **Yes**.
 
-Save the modified `ossec.conf` file.
+2. **Download and Extract Mimikatz:**
+    - Download Mimikatz from the official website and save it in your Downloads folder.
+    - If the download is blocked by your web browser, disable the safe browsing feature (e.g., in Google Chrome, go to **Settings** > **Privacy and security** > **Security** > select **No protection**).
+    - Once downloaded, right-click the Mimikatz file and select **Extract all**.
 
-# Verify Telemetry
+3. **Run Mimikatz:**
+    - Open an administrative PowerShell session.
+    - Navigate to the Mimikatz folder using the `cd` command.
+    - Run `mimikatz.exe`.
 
-1. Ensure that the telemetry data containing Mimikatz is being ingested into Wazuh.
-2. Confirm this by logging into the Wazuh dashboard and navigating to `Wazuh Manager → Agents`.
-3. You should see the active agent and verify the telemetry data.
+     ![53](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/1e3b8103-4f13-4418-8744-4f4489543813)
 
-# Query Security Events
 
-1. Click on `Security Events` on the Wazuh dashboard.
-2. Start querying and analyzing more events.
+4. **Verify Telemetry**:
+ - Go to the Wazuh dashboard and search for "mimikatz" to see if any events are logged.
+ - Note: You might not see any events because Sysmon events may not trigger alerts or rules in Wazuh by default.
 
-By following these steps, you will have configured your Windows 10 machine to send telemetry data, including Sysmon logs, to Wazuh. You will also have learned how to customize log sources and ensure that relevant security events are ingested and monitored effectively.
+## Configure Wazuh to Log Everything
+  1. In the Wazuh manager CLI, create a backup of the `ossec.conf` file located in `/var/ossec/etc/ossec.conf` and save it in your home directory as `ossec-backup.conf`.
+  2. Edit the `ossec.conf` file, changing the `logall` and `logall_json` settings from "no" to "yes" under the `<alerts-log>` section. Save and confirm the changes.
+
+     ![54](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0cc4caff-2641-4a65-8cda-e69d918f59c1)
+ 
+ 3. Restart the Wazuh Manager:
+
+     ```sh
+    systemctl restart wazuh-manager.service
+    ```
