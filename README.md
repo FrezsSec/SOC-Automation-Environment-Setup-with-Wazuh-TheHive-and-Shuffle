@@ -679,9 +679,91 @@ To integrate Wazuh with Shuffle, follow these steps:
 
    - You will see the execution details. Click on it.
    - Click **Execution Argument** to see all the information generated from Wazuh.
+     
+     ![75](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0cba01c0-824e-44e9-ba9b-e7ed69f26412)
 
-1. **Check Alerts**:
-   - The Mimikatz alert should have been sent to Shuffle, and Shuffle should have received this alert.
+### Integrating Mimikatz Alerts with Shuffle and VirusTotal
+
+We forwarded the Mimikatz alert to Shuffle, and it was successfully received. Next, we'll extract the SHA hash from the file and verify its reputation score on VirusTotal.
+
+#### Parsing the Hash Value
+
+When dealing with hash values, we need to extract the actual hash from the appended type (e.g., "SHA1="). This ensures that we only send the hash value to VirusTotal for checking. Follow these steps:
+
+   - Click on the **Change Me** icon.
+   - Instead of "repeat back to me", select **Regex capture group** from Find Actions menu.
+   - Set Input Data. Click the **+** button and select **Execution Argument**.
+   - Select **hashes** from Execution Argument.
+   
+      ![76](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/2aa42874-70db-4f2f-a11c-8cb71edb76e1)
+
+   - Create a regex pattern for extracting the SHA-256 value and write it in Regex field
+     ```
+     SHA256=([A-Fa-f0-9]{64})
+     ```
+      ![77](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/741a94f6-5974-463b-8821-5a1bab7e22a7)
+     
+   - Save the workflow.
+   - Click on the person icon.
+   - Press the refresh button at the top.
+     
+     ![78](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/40329eb6-57f5-4223-bd85-8b03d23f24fa)
+
+   - Expand the results to see the parsed SHA-256 hash. We can see it parsed out SHA256 hash.
+
+     ![80](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f1b007ca-a8b9-44a7-8d3c-9d11d1fa0510)
+
+
+#### Integrating VirusTotal API
+
+   - Go to the [VirusTotal website](https://www.virustotal.com) and sign up.
+   - Copy your API key and go back to Shuffle.
+   - In Shuffle, click on **Apps**.
+   - Search for virustotal and click on it to activate.
+   - Drag VirusTotal into the workflow, and it will automatically connect.
+
+     ![81](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ed5e1efa-9ae8-4b29-bd67-344f7ce85396)
+
+   - Change the action type  to **Get a hash report**.
+   - Click **Authenticate VirusTotal V3**
+
+       ![82](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/2a306f3c-7d75-4b1e-9b14-ec74fd79b63a)
+
+   - Paste your virustotal API key and hit sumbit.
+    
+      ![83](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a2dda574-fc23-400d-9eed-ceb086a90f84)
+
+    
+## Complete Workflow
+
+1. **Send Alerts to The Hive**:
+   - Configure an action in the workflow to send the alert to The Hive.
+
+2. **Email Notification**:
+   - Set up an email notification to alert an analyst for further investigation.
+
+By following these steps, you will automate the process of extracting hash values from Mimikatz alerts, checking their reputation on VirusTotal, and notifying an analyst for further investigation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Extract and Analyze the SHA Hash
 
