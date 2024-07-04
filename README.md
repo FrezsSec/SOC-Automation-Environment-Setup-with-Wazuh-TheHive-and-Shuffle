@@ -732,8 +732,18 @@ When dealing with hash values, we need to extract the actual hash from the appen
    - Paste your virustotal API key and hit sumbit.
     
       ![83](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a2dda574-fc23-400d-9eed-ceb086a90f84)
+   - Make sure to select the Regex output "@sha256_regex.group_0.#" for the hash section (or ID).
 
-    
+     ![84](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0d0643c9-7616-46c1-a127-3cbcb62e31af)
+
+   - Save the workflow.
+   - Click on the person icon.
+   - Rerun the workflow
+   - Expand the virustotal output.
+
+
+
+
 ## Complete Workflow
 
 1. **Send Alerts to The Hive**:
