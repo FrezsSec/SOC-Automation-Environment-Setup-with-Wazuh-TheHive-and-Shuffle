@@ -591,3 +591,99 @@ For the sake of ingestion:
 
 As you can see, the alert was triggered because our custom rule examines the `originalFileName`.
   
+## Set Up Shuffle SOAR Integration
+
+This is the final part of our project, where we will implement the Shuffle SOAR configuration and finalize the overall setup. Let’s get started!
+
+### Create an Account on Shuffle
+
+1. **Sign Up**: Go to [shuffler.io](https://shuffler.io) and create an account. After logging in, you will see a page similar to this:
+
+    ![64](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f3edac56-8cca-4468-b49e-61fe43fc5a7d)
+
+
+4. **Create a New Workflow**:
+   - Click on **New Workflow**.
+
+   ![65](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/bbe7c84c-d5e4-4ca1-9e03-849dc0d1ad26)
+
+
+   - Enter a name and description for your workflow.
+   - Select any option in the use case section.
+   - Save changes.
+
+   ![67](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c6ab67a9-d8b2-4175-afae-800b049dd1c7)
+
+
+   You should now see a page like this:
+
+    ![68](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/944d0443-ff7f-4558-90d4-0ba0dfb587f0)
+
+### Configure the Webhook
+
+1. **Add a Webhook**:
+   - Click on "triggers" section on the left side.
+   - Drag and drop the **Webhook** from the left menu.
+   - Select it, give it a name on the right hand side, and copy the URI.
+   - We will add this URL to the `ossec.conf` file ON Wazuh manager.
+
+      ![70](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/398ed4d0-7162-4537-95f3-0ff71a7f2e0d)
+
+
+3. **Modify the Webhook**:
+   - Click on the **Change Me** icon and make sure the "find actions" is selected as "Repeat back to me"
+   - Remove **Hello World** from the **Call** section.
+   - Hit the **+** button and select **Execution Argument**.
+   - Save it
+
+      ![71](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/826f1be1-dccd-4341-ba65-7f4955605c11)
+
+### Wazuh Integration
+
+To integrate Wazuh with Shuffle, follow these steps:
+
+1. **Edit `ossec.conf`**:
+   - Add the following integration to the `ossec.conf` file:
+     ```xml
+     <integration>
+       <name>Shuffle Webhook</name>
+       <hook_url>YOUR_WEBHOOK_URL_HERE</hook_url>
+       <alert_format>json</alert_format>
+       <rule_id>100002</rule_id>
+     </integration>
+     ```
+   - **Note**: Ensure the indentation aligns with the other lines in the file.
+
+2. **Explanation**:
+   - We assigned a rule ID of `100002` when writing the rule for Mimikatz, so we use `100002` here.
+   - The `alert_format` indicates that alerts will be formatted in JSON.
+
+3. **Restart Wazuh Manager**:
+   - Apply the changes by restarting the Wazuh manager:
+     ```sh
+     systemctl restart wazuh-manager
+     ```
+
+4. **Test Mimikatz**:
+   - Run Mimikatz on your Windows machine.
+
+### Verify and Test in Shuffle
+
+1. **Start the Workflow**:
+   - Return to Shuffle and start the process.
+   - Click on the person icon below and press **Test Workflow**.
+   - You will see the execution details. Click on it.
+   - Click **Execution Argument** to see all the information generated from Wazuh.
+
+2. **Check Alerts**:
+   - The Mimikatz alert should have been sent to Shuffle, and Shuffle should have received this alert.
+
+### Extract and Analyze the SHA Hash
+
+1. **Extract SHA Hash**:
+   - We will extract the SHA hash from the alert using regex to ensure we only get the hash value.
+
+2. **Check Reputation Score**:
+   - Use the extracted hash to check its reputation score on VirusTotal.
+
+By following these steps, you will have successfully configured Shuffle SOAR integration with Wazuh, sent alerts, and analyzed them effectively.
