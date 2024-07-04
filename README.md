@@ -642,40 +642,45 @@ This is the final part of our project, where we will implement the Shuffle SOAR 
 
 To integrate Wazuh with Shuffle, follow these steps:
 
-1. **Edit `ossec.conf`**:
-   - Add the following integration to the `ossec.conf` file:
+1. **Edit `ossec.conf`** located in `/var/ossec/etc/`:
+   - Add the following integration to the `ossec.conf` file after the `<global>` tag:
      ```xml
      <integration>
        <name>Shuffle Webhook</name>
        <hook_url>YOUR_WEBHOOK_URL_HERE</hook_url>
-       <alert_format>json</alert_format>
        <rule_id>100002</rule_id>
+       <alert_format>json</alert_format>
      </integration>
      ```
-   - **Note**: Ensure the indentation aligns with the other lines in the file.
+       ![72](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/6a568fd7-0b6e-428e-91fb-a15dee008f67)
 
-2. **Explanation**:
-   - We assigned a rule ID of `100002` when writing the rule for Mimikatz, so we use `100002` here.
-   - The `alert_format` indicates that alerts will be formatted in JSON.
+   - **Note**: Ensure the indentation aligns with the other lines in the file and `</hook_url>` is not included as the url.
+   - We previously assigned the rule ID `100002` to our Mimikatz detection rule, so we'll reference that same number here.
+   - The `alert_format` parameter indicates that alerts will be formatted in JSON.
 
 3. **Restart Wazuh Manager**:
    - Apply the changes by restarting the Wazuh manager:
      ```sh
-     systemctl restart wazuh-manager
+     systemctl restart wazuh-manager.service
      ```
-
 4. **Test Mimikatz**:
-   - Run Mimikatz on your Windows machine.
+   - Run Mimikatz on your Windows client machine.
 
 ### Verify and Test in Shuffle
 
 1. **Start the Workflow**:
    - Return to Shuffle and start the process.
+
+     ![73](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/5564d5b3-e413-4b47-846d-62a6fa976d01)
+
    - Click on the person icon below and press **Test Workflow**.
+  
+     ![74](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e148f15b-7f55-45f4-8278-65584ac29f17)
+
    - You will see the execution details. Click on it.
    - Click **Execution Argument** to see all the information generated from Wazuh.
 
-2. **Check Alerts**:
+1. **Check Alerts**:
    - The Mimikatz alert should have been sent to Shuffle, and Shuffle should have received this alert.
 
 ### Extract and Analyze the SHA Hash
