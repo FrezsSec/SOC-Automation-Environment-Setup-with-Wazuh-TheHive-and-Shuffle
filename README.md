@@ -812,4 +812,12 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
 
   - For the service account: Create an API key, Once created, immediately save the API key in a secure location.
  
-   ![94](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/6fc70e36-48a7-4349-8495-19f8536a9596)
+     ![94](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/6fc70e36-48a7-4349-8495-19f8536a9596)
+
+**Sign in with newly created account**:
+- Log out of the Admin account and log in as the new normal user.
+  
+  ![95](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/9501712b-2ed7-4f19-aea6-db67d426235a)
+
+  ### Integrate TheHive with Shuffle:###
+  
