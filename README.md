@@ -754,3 +754,37 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
 
 ## TheHive Integration
 
+ - Under the application tab at the bottom left corner, search for "The Hive."
+- Select "The Hive edited" and click on it.
+- Drag it over to your workflow and connect it to VirusTotal.
+
+  ![89](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e679c567-a118-4bd9-8089-450d7c0093d6)
+
+
+ ***Log in to TheHive***:
+  - Go to TheHive and log in using the default credentials:
+  - **Username:** `admin@thehive.local`
+  - **Password:** `secret`
+- By default, there is only one organization named "admin."
+
+### 4. Create a New Organization and User
+- Click the plus button at the top left corner to create a new organization.
+- Name the organization (e.g., `My DFIR`) and provide a description (e.g., `SOC Automation Project`).
+- Confirm the creation of the new organization.
+
+### 5. Add Users to the Organization
+- Click into the new organization. You will see a message indicating no users have been found.
+- Add two users:
+
+  **First User:**
+  - Set the type to `Normal`.
+  - **Login:** `mydfir@test.com`
+  - **Name:** `My DFIR`
+  - **Profile:** Select `Analyst`.
+  - Save and add another user.
+
+  **Second User:**
+  - Set the type to `Service`.
+  - **Login:** `shuffle@test.com`
+  - **Name:** `SOAR`
+  - **Profile:** In a real-world environment, create a new set of permissions based on the principle of least privilege and assign it to the service account.
