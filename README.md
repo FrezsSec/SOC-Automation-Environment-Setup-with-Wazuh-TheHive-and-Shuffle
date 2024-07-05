@@ -805,19 +805,31 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
    ![92](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c7e875cc-6260-4572-b1ac-8b05526366b9)
 
   ***Create password and API key:***
+
   - Create a password for the normal user account and an API key for the service account.
-  - For the normal user account: Highlight the user account and select "Preview", Scroll down and click "Set a new password".
+  - For the normal user account, highlight the user account, select "Preview," scroll down, and click "Set a new password."
 
     ![93](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e5e5d10c-6731-40e9-9aac-ca9637145f3b)
 
-  - For the service account: Create an API key, Once created, immediately save the API key in a secure location.
+  - For the service account, create an API key and, once created, immediately save it in a secure location.
  
      ![94](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/6fc70e36-48a7-4349-8495-19f8536a9596)
 
 **Sign in with newly created account**:
+
 - Log out of the Admin account and log in as the new normal user.
   
   ![95](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/9501712b-2ed7-4f19-aea6-db67d426235a)
 
-  ### Integrate TheHive with Shuffle:###
-  
+  ### Integrate TheHive with Shuffle: ###
+
+  - Go back to your Shuffle instance.
+  - On TheHive instance, click on the "Authenticate."
+  - Copy your API key from TheHive and paste it in the authentication field.
+  - For the URL, enter the public IP address and port number of your Hive instance.
+  - Click on "Submit" to save the authentication configuration.
+
+    ![96](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0e99bfc5-3105-4863-b664-762f85ae47c5)
+
+- Under "Find Actions," select "Create Alert."
+- Set the Date Field
