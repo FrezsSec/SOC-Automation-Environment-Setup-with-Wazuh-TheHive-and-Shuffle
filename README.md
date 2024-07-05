@@ -371,6 +371,14 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
       -Xms2g
       -Xmx2g
        ```
+      ```sh
+      sudo systemctl start elasticsearch
+      ```
+    - And ensure that elasticsearch and cassandra are still running.
+      ```sh
+      sudo systemctl status elasticsearch
+      sudo systemctl status cassandra
+      ```
 
 ## Configure Wazuh
 
@@ -758,7 +766,7 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
 - Select "The Hive edited" and click on it.
 - Drag it over to your workflow and connect it to VirusTotal.
 
-  ![89](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e679c567-a118-4bd9-8089-450d7c0093d6)
+   ![89](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e679c567-a118-4bd9-8089-450d7c0093d6)
 
 
  ***Log in to TheHive***:
@@ -767,12 +775,15 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
   - **Password:** `secret`
 - By default, there is only one organization named "admin."
 
-### 4. Create a New Organization and User
+ ***Create a New Organization and User***:
 - Click the plus button at the top left corner to create a new organization.
-- Name the organization (e.g., `My DFIR`) and provide a description (e.g., `SOC Automation Project`).
+- Name the organization (e.g., `MYSOC`) and provide a description (e.g., `SOC Automation Project`).
 - Confirm the creation of the new organization.
+  
+  ![90](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a5f60682-1307-43da-a978-ea382f20f344)
 
-### 5. Add Users to the Organization
+
+***Add Users to the Organization***:
 - Click into the new organization. You will see a message indicating no users have been found.
 - Add two users:
 
