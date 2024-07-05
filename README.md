@@ -769,13 +769,13 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
    ![89](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e679c567-a118-4bd9-8089-450d7c0093d6)
 
 
- ***Log in to TheHive***:
+ **Log in to TheHive**:
   - Go to TheHive and log in using the default credentials:
   - **Username:** `admin@thehive.local`
   - **Password:** `secret`
 - By default, there is only one organization named "admin."
 
- ***Create a New Organization and User***:
+ **Create a New Organization and User**:
 - Click the plus button at the top left corner to create a new organization.
 - Name the organization (e.g., `MYSOC`) and provide a description (e.g., `SOC Automation Project`).
 - Confirm the creation of the new organization.
@@ -783,19 +783,33 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
   ![90](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a5f60682-1307-43da-a978-ea382f20f344)
 
 
-***Add Users to the Organization***:
+**Add Users to the Organization:**
 - Click into the new organization. You will see a message indicating no users have been found.
 - Add two users:
 
-  **First User:**
+  ***First User:***
   - Set the type to `Normal`.
-  - **Login:** `mydfir@test.com`
-  - **Name:** `My DFIR`
+  - **Login:** `mysoc@test.com`
+  - **Name:** `mysoc`
   - **Profile:** Select `Analyst`.
   - Save and add another user.
 
-  **Second User:**
+  ***Second User:***
   - Set the type to `Service`.
   - **Login:** `shuffle@test.com`
   - **Name:** `SOAR`
-  - **Profile:** In a real-world environment, create a new set of permissions based on the principle of least privilege and assign it to the service account.
+  - **Profile:** In a real-world environment, create a new set of permissions based on the principle of least privilege and assign it to the service account. For this demo environment I select `Analyst`.
+
+   ![91](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/54ee9bf4-a457-486a-83ed-e5de399daab7)
+
+   ![92](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c7e875cc-6260-4572-b1ac-8b05526366b9)
+
+  ***Create password and API key:***
+  - Create a password for the normal user account and an API key for the service account.
+  - For the normal user account: Highlight the user account and select "Preview", Scroll down and click "Set a new password".
+
+    ![93](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e5e5d10c-6731-40e9-9aac-ca9637145f3b)
+
+  - For the service account: Create an API key, Once created, immediately save the API key in a secure location.
+ 
+   ![94](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/6fc70e36-48a7-4349-8495-19f8536a9596)
