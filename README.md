@@ -699,9 +699,10 @@ When dealing with hash values, we need to extract the actual hash from the appen
 
    - Create a regex pattern for extracting the SHA-256 value and write it in Regex field
      ```
-     SHA256=([A-Fa-f0-9]{64})
+     (?<=SHA256=)[^,]*(?=,)
      ```
-      ![77](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/741a94f6-5974-463b-8821-5a1bab7e22a7)
+      ![77](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/2e84c6eb-8156-4cc7-aa61-a98859f05ae0)
+
      
    - Save the workflow.
    - Click on the person icon.
@@ -711,8 +712,10 @@ When dealing with hash values, we need to extract the actual hash from the appen
 
    - Expand the results to see the parsed SHA-256 hash. We can see it parsed out SHA256 hash.
 
-     ![80](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f1b007ca-a8b9-44a7-8d3c-9d11d1fa0510)
+     ![80](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/3da36a26-040a-48af-aa98-33b33385aec9)
 
+
+   - Rename "Change Me" to "SHA256_Regex.
 
 #### Integrating VirusTotal API
 
@@ -732,55 +735,22 @@ When dealing with hash values, we need to extract the actual hash from the appen
    - Paste your virustotal API key and hit sumbit.
     
       ![83](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a2dda574-fc23-400d-9eed-ceb086a90f84)
-   - Make sure to select the Regex output "@sha256_regex.group_0.#" for the hash section (or ID).
+ 
+   - Make sure to select the Regex output for list for in hash section (or id section).
 
-     ![84](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0d0643c9-7616-46c1-a127-3cbcb62e31af)
+     ![85](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0a07001a-881d-4d9d-8796-26273261520d)
 
    - Save the workflow.
    - Click on the person icon.
    - Rerun the workflow
    - Expand the virustotal output.
 
+     ![87](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/7ac7567a-ddbf-4f29-ae17-e949b119d97f)
 
+     ![88](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c6c0fe85-81f6-48c4-83a2-db2e190991fd)
 
+66 scanners have detected this file as malicious. 
+To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We then performed regex to parse out the SHA-256 hash and used VirusTotal to check its reputation. Next, we will send the details over to The Hive so it can create an alert for case management.
 
-## Complete Workflow
+## TheHive Integration
 
-1. **Send Alerts to The Hive**:
-   - Configure an action in the workflow to send the alert to The Hive.
-
-2. **Email Notification**:
-   - Set up an email notification to alert an analyst for further investigation.
-
-By following these steps, you will automate the process of extracting hash values from Mimikatz alerts, checking their reputation on VirusTotal, and notifying an analyst for further investigation.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Extract and Analyze the SHA Hash
-
-1. **Extract SHA Hash**:
-   - We will extract the SHA hash from the alert using regex to ensure we only get the hash value.
-
-2. **Check Reputation Score**:
-   - Use the extracted hash to check its reputation score on VirusTotal.
-
-By following these steps, you will have successfully configured Shuffle SOAR integration with Wazuh, sent alerts, and analyzed them effectively.
