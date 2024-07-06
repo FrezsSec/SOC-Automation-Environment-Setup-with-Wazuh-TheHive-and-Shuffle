@@ -868,5 +868,28 @@ After completing your tests, make sure to remove this rule or adjust it to ensur
   - Head back to Shuffle and rerun the workflow by clicking on the person icon.
   - Switch over to TheHive dashboard where we can view our alert.
 
-     ![100](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/94d9f155-510c-45ec-af35-cf3d304aa115)
+    ![k](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/bdb3fcd2-ef30-4126-b27d-d5f166ff07d8)
+
+
+### Sending Email ###
+We will proceed with sending an email containing relevant information to the analyst.
+ - Click on "Apps" at the bottom left of your interface and drag the email application to your workspace.
+ - Establish a connection from VirusTotal to the email application.
+
+   ![101](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/796d27e0-8c6e-4d96-9f61-96e9a0ad277e)
+
+
+ - Input the recipient's email address. Ensure it is a valid email address.
+ - Select a subject and fill the body with the following or any other necessary information:
+
+   - Time:$exec.text.win.eventdata.utcTime
+   - Title:$exec.title
+   - Host:$exec.text.win.system.computer
+   
+    ![102](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e9dec29c-a43b-44ac-854f-2e7e0b564077)
+
+- Save and rerun the workflow.
+- Check your inbox to view the email.
+
+  ![103](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ef8f2da1-65d9-406f-81cd-48e6ae4ec45c)
 
