@@ -70,7 +70,7 @@ In this section, we will cover the installation steps for each component of our 
 
 ## Setting Up Wazuh
 
-To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. You can create an account on DigitalOcean using this [link](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa01uVG0yV1VvYU5vVUtyeDdnRWY3MXdqbEdhUXxBQ3Jtc0ttX3p2WDI2anZQTGFiaFUxQzR6bXZPOUNLTDFvbUpLdTZWekc2T2xpN2paTkstU2pXVkN0TFJaNG1OMHVHd0Y4YXFtZUdnd1VTZFBoWlZSazJCMGxwYWREbklvUUgwUmllV2NKVGQ0QmZqeThHLVBnZw&q=https%3A%2F%2Fm.do.co%2Fc%2Fe2ce5a05f701&v=YxpUx0czgx4), which provides $200 in free credit for the first 2 months. (Please note, your bank account will be charged a small verification fee, which will be refunded.)
+To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. You can create an account on DigitalOcean using this [link](https://www.digitalocean.com/?refcode=e2ce5a05f701&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=CopyPaste), which provides $200 in free credit for the first 2 months. (Please note, your bank account will be charged a small verification fee, which will be refunded.)
 
 **Steps:**
 
@@ -89,7 +89,7 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
   ![14](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a404569d-0fd2-426c-b5be-97428dad0ef2)
 
 
-4. Scroll down to change your hostname. I changed mine to "wazuh." After that, click on "Create Droplet."
+4. Scroll down to change your hostname. I changed mine to "Wazuh." After that, click on "Create Droplet."
 
 5. While your droplet is being created, it's crucial to set up a firewall to protect your server from external threats. Follow these steps:
 
@@ -119,19 +119,19 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 
 
 
-6. SSH into Your Wazuh Server: Open PowerShell on your local machine and execute the following command to SSH into your Wazuh server:
+6. SSH into Your Wazuh Server. Open PowerShell on your local machine and execute the following command to SSH into your Wazuh server:
 
-  ```ssh root@your_server_ip```
+   ```ssh root@your_server_ip```
   
-7.    Once connected to your virtual machine via SSH, you can start by updating and upgrading the system. Since we are logged in as root, execute the following commands in your terminal:
+7. Once connected to your virtual machine via SSH, you can start by updating and upgrading the system. Since we are logged in as root, execute the following commands in your terminal:
 
-```apt-get update && apt-get upgrade -y```
+   ```apt-get update && apt-get upgrade -y```
 
 ![h](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ce30915e-1ba8-4151-b16b-a831a0a25e3c)
 
 8. Once the update and upgrade process is complete, you can begin the installation of Wazuh. To get started with Wazuh, run the following curl command to download and execute the installation script:
 
- ```curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh && sudo bash ./wazuh-install.sh -a ```
+   ```curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh && sudo bash ./wazuh-install.sh -a ```
 
 ![24](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/380964ac-2a15-49d3-8675-bf778b358900)
 
@@ -354,8 +354,7 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
         ![38](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a2315401-44ec-4bfa-827e-9be906cc850a)
 
     - Now we can access TheHive by navigating to `http://YOUR_THEHIVE_ADDRESS:9000`. Here are the default credentials for TheHive:
-      "Username: admin@thehive.local
-       Password: secret"
+      Username: `admin@thehive.local`, Password: `secret`
 
         ![2024-07-02 11_24_46-Window](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/746e4121-58b2-470f-a11b-0422485f3140)
 
@@ -433,7 +432,7 @@ Start with our Windows 10 machine. When we install Wazuh, the configuration file
 3. Scroll down to the section titled `log analysis`.
 4. Under the security location, you'll notice some event IDs being excluded by the exclamation mark (`!=`), which means "does not equal to".
 
-#### 4. Add Mimikatz Monitoring
+#### 3. Add Mimikatz Monitoring
 
  We want to look for processes that contain Mimikatz. For this, we need either Sysmon installed or Windows Security Event ID 4688 enabled. We will use the Sysmon method since we installed Sysmon previously.
  
@@ -456,7 +455,7 @@ Start with our Windows 10 machine. When we install Wazuh, the configuration file
 
 ```
 
-#### 7. Find Sysmon Channel Name
+#### 4. Find Sysmon Channel Name
 
 1. Open Windows Event Viewer.
 2. Expand `Applications and Services Logs`.
@@ -468,7 +467,7 @@ Start with our Windows 10 machine. When we install Wazuh, the configuration file
 ![52](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c48d4859-3d70-4ff9-9fab-e4be3c799aad)
 
 
-#### 9. Remove Unwanted Log Sources
+#### 5. Remove Unwanted Log Sources
 
 For the sake of ingestion:
 1. Remove the local file tags for `application`, `security`, and `system`.
@@ -477,13 +476,15 @@ For the sake of ingestion:
 4. Save the modified `ossec.conf` file.
 5. Go to Services application and restart Wazuh
    
-#### 10. Download and Run Mimikatz
+#### 6. Download and Run Mimikatz
 
 1. **Disable Windows Defender::**
     - Type `security` in the Windows search bar and select **Windows Security**.
     - Dismiss the virus and threat protection prompt.
     - Under **Manage settings** for virus and threat protection settings, scroll down and click on **Add or remove exclusions**.
     - Add an exclusion for your Downloads folder by selecting **Folder** and choosing the Downloads folder. Confirm by selecting **Yes**.
+
+  *Don't forget to restore your security settings after the test is completed to ensure your system remains protected.*
 
 2. **Download and Extract Mimikatz:**
     - Download Mimikatz from the official website and save it in your Downloads folder.
@@ -599,9 +600,9 @@ For the sake of ingestion:
 
 As you can see, the alert was triggered because our custom rule examines the `originalFileName`.
   
-## Set Up Shuffle SOAR Integration
+## Set Up Shuffle
 
-This is the final part of our project, where we will implement the Shuffle SOAR configuration and finalize the overall setup. Let’s get started!
+This is the final part of our project, where we will implement the Shuffle configuration and finalize the overall setup. Let’s get started!
 
 ### Create an Account on Shuffle
 
@@ -632,7 +633,7 @@ This is the final part of our project, where we will implement the Shuffle SOAR 
 1. **Add a Webhook**:
    - Click on "triggers" section on the left side.
    - Drag and drop the **Webhook** from the left menu.
-   - Select it, give it a name on the right hand side, and copy the URI.
+   - Select it, give it a name on the right-hand side (e.g., Wazuh Alerts), and copy the URI.
    - We will add this URL to the `ossec.conf` file ON Wazuh manager.
 
       ![70](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/398ed4d0-7162-4537-95f3-0ff71a7f2e0d)
@@ -642,7 +643,7 @@ This is the final part of our project, where we will implement the Shuffle SOAR 
    - Click on the **Change Me** icon and make sure the "find actions" is selected as "Repeat back to me"
    - Remove **Hello World** from the **Call** section.
    - Hit the **+** button and select **Execution Argument**.
-   - Save it
+   - Then Save it.
 
       ![71](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/826f1be1-dccd-4341-ba65-7f4955605c11)
 
@@ -744,7 +745,7 @@ When dealing with hash values, we need to extract the actual hash from the appen
     
       ![83](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/a2dda574-fc23-400d-9eed-ceb086a90f84)
  
-   - Make sure to select the Regex output for list for in hash section (or id section).
+   - Make sure to select the Regex output for list in hash section (or id section).
 
      ![85](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0a07001a-881d-4d9d-8796-26273261520d)
 
@@ -758,7 +759,7 @@ When dealing with hash values, we need to extract the actual hash from the appen
      ![88](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/c6c0fe85-81f6-48c4-83a2-db2e190991fd)
 
 66 scanners have detected this file as malicious. 
-To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We then performed regex to parse out the SHA-256 hash and used VirusTotal to check its reputation. Next, we will send the details over to The Hive so it can create an alert for case management.
+To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We then performed regex to parse out the SHA-256 hash and used VirusTotal to check its reputation. Next, we will send the details over to TheHive so it can create an alert for case management.
 
 ## TheHive Integration
 
@@ -857,8 +858,8 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
 6. ***Configure the Rule:***
      - Set the rule type to **Custom**.
      - Set the **Ports** to `9000`.
-     - **Remove all IPv6** addresses.
-     - **Keep all IPv4** addresses.
+     - Remove all IPv6** addresses.
+     - Keep all IPv4** addresses.
 7. Click the "Save" button to apply the new rule.
 
      ![99](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/d0512d34-8738-416e-bbb0-0b1c93eddd8a)
@@ -896,4 +897,5 @@ We will proceed with sending an email containing relevant information to the ana
 # Summary:
 
 I completed a SOC automation project integrating Wazuh, TheHive, and Shuffle. This involved setting up Wazuh on Ubuntu, configuring TheHive with Cassandra and Elasticsearch, and creating custom rules to detect threats like Mimikatz. Automation via Shuffle facilitated rapid incident response. 
+
 Special thanks to [MyDFIR](https://www.youtube.com/@MyDFIR), whose tutorials was crucial in completing this project.
