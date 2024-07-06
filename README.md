@@ -763,10 +763,10 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
 ## TheHive Integration
 
  - Under the application tab at the bottom left corner, search for "The Hive."
-- Select "The Hive edited" and click on it.
-- Drag it over to your workflow and connect it to VirusTotal.
+ - Select "TheHive" and click on it.
+ - Drag it over to your workflow and connect it to VirusTotal.
 
-   ![89](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/e679c567-a118-4bd9-8089-450d7c0093d6)
+   ![89](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f85aa6f1-3cd6-4c9b-bfcd-3b491599440b)
 
 
  **Log in to TheHive**:
@@ -832,27 +832,21 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
     ![96](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0e99bfc5-3105-4863-b664-762f85ae47c5)
 
   - Under "Find Actions," select "Create alert."
-  - Fill the body as follows:
-  ```sh
-  $exec.text.win.eventdata.utcTime
-  Mimikatz detected on host: $exec.text.win.system.computer from user: $exec.all_fields.data.win.eventdata.user
-  {
-    "flag": false,
-    "pap": 2,
-    "severity": "2",
-    "source": "Wazuh",
-    "sourceref": "Rule: 100002",
-    "status": "New",
-    "summary": "mimikatz activity detection on host: $exec.text.win.system.computer and The ProcessID is:$exec.text.win.eventdata.processId and the Commandline is $exec.text.win.eventdata.commandLine",
-    "tags": ["T1003"],
-    "title": "$exec.title",
-    "tlp": 2,
-    "type": "Internal"
-  }
-  ```
+  - Fill other fields as follows:
 
-   ![97](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/721fd8f6-8ab1-4d27-a7d5-36830270a06e)
- 
+    - **Date:** `$exec.text.win.eventdata.utcTime`
+    - **Description:** `"Mimikatz detected on host: $exec.text.win.system.computer from user: $exec.all_fields.data.win.eventdata.user"`
+    - **Flag:** `false`
+    - **PAP:** `2`
+    - **Severity:** `"2"`
+    - **Source:** `"Wazuh"`
+    - **SourceRef:** `"Rule: 100002"`
+    - **Status:** `"New"`
+    - **Summary:** `"mimikatz activity detection on host: $exec.text.win.system.computer and The ProcessID is:$exec.text.win.eventdata.processId and the Commandline is $exec.text.win.eventdata.commandLine"`
+    - **Tags:** `["T1003"]`
+    - **Title:** `$exec.title`
+    - **TLP:** `2`
+    - **Type:** `"Internal"`
   - Save the workflow.
 
   #### Modifying Cloud Firewall on DigitalOcean: ####
@@ -872,4 +866,8 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
 
 After completing your tests, make sure to remove this rule or adjust it to ensure the security of your infrastructure.
 
-  - Head back to Shuffle and rerun the workflow by clicking on the person icon 
+  - Head back to Shuffle and rerun the workflow by clicking on the person icon.
+  - Switch over to TheHive dashboard where we can view our alert.
+
+     ![100](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/94d9f155-510c-45ec-af35-cf3d304aa115)
+
