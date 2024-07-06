@@ -849,5 +849,27 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
     "tlp": 2,
     "type": "Internal"
   }
+  ```
 
+   ![97](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/721fd8f6-8ab1-4d27-a7d5-36830270a06e)
+ 
+  - Save the workflow.
 
+  #### Modifying Cloud Firewall on DigitalOcean: ####
+   1. Log in to DigitalOcean
+   2. From the dashboard, click on the "Networking" tab.
+   3. Click on "Firewalls" to view the list of firewalls you have created.
+   4. Choose the firewall you created for your project.
+   5. Click on "Add Rule" to create a new firewall rule for inbound traffic.
+   6. **Configure the Rule:**
+   - Set the rule type to **Custom**.
+   - Set the **Ports** to `9000`.
+   - **Remove all IPv6** addresses.
+   - **Keep all IPv4** addresses.
+  7. Click the "Save" button to apply the new rule.
+
+     ![99](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/d0512d34-8738-416e-bbb0-0b1c93eddd8a)
+
+After completing your tests, make sure to remove this rule or adjust it to ensure the security of your infrastructure.
+
+  - Head back to Shuffle and rerun the workflow by clicking on the person icon 
