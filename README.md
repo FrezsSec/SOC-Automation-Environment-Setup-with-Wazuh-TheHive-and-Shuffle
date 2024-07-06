@@ -831,5 +831,23 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
 
     ![96](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0e99bfc5-3105-4863-b664-762f85ae47c5)
 
-- Under "Find Actions," select "Create Alert."
-- Set the Date Field
+  - Under "Find Actions," select "Create alert."
+  - Fill the body as follows:
+  ```sh
+  $exec.text.win.eventdata.utcTime
+  Mimikatz detected on host: $exec.text.win.system.computer from user: $exec.all_fields.data.win.eventdata.user
+  {
+    "flag": false,
+    "pap": 2,
+    "severity": "2",
+    "source": "Wazuh",
+    "sourceref": "Rule: 100002",
+    "status": "New",
+    "summary": "mimikatz activity detection on host: $exec.text.win.system.computer and The ProcessID is:$exec.text.win.eventdata.processId and the Commandline is $exec.text.win.eventdata.commandLine",
+    "tags": ["T1003"],
+    "title": "$exec.title",
+    "tlp": 2,
+    "type": "Internal"
+  }
+
+
