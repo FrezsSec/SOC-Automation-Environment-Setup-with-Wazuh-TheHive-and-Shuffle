@@ -1,6 +1,6 @@
 # Setting Up SOC Automation with Wazuh, TheHive, and Shuffle
 
-I successfully set up and configured a Security Operations Center (SOC) automation project, integrating Wazuh as the security monitoring tool, TheHive for case management, and Shuffle for orchestration and automation. This lab project involved creating a logical diagram of the SOC setup, implementing SOAR integration, and configuring automated response actions. The setup included a network environment comprising a Windows 10 client, Wazuh server, and TheHive server. The project aimed to demonstrate the automation of incident detection, enrichment, and response in a SOC environment.
+I successfully set up and configured a Security Operations Center (SOC) automation project, integrating Wazuh as the security monitoring tool, TheHive for case management, and Shuffle for orchestration and automation. This lab project involved creating a logical diagram of the SOC setup, implementing automation integration, and configuring automated response actions. The setup included a network environment comprising a Windows 10 client, Wazuh server, and TheHive server. The project aimed to demonstrate the automation of incident detection, enrichment, and response in a SOC environment.
 
 ## Tools
 
@@ -893,3 +893,7 @@ We will proceed with sending an email containing relevant information to the ana
 
   ![103](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ef8f2da1-65d9-406f-81cd-48e6ae4ec45c)
 
+# Summary:
+
+I completed a SOC automation project integrating Wazuh, TheHive, and Shuffle. This involved setting up Wazuh on Ubuntu, configuring TheHive with Cassandra and Elasticsearch, and creating custom rules to detect threats like Mimikatz. Automation via Shuffle facilitated rapid incident response. 
+Special thanks to [MyDFIR](https://www.youtube.com/@MyDFIR), whose tutorials was crucial in completing this project.
