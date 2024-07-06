@@ -815,13 +815,11 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
  
      ![94](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/6fc70e36-48a7-4349-8495-19f8536a9596)
 
-**Sign in with newly created account**:
-
-- Log out of the Admin account and log in as the new normal user.
+  - Log out of the Admin account and log in as the new normal user.
   
   ![95](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/9501712b-2ed7-4f19-aea6-db67d426235a)
 
-  ### Integrate TheHive with Shuffle: ###
+### Integrate TheHive with Shuffle: ###
 
   - Go back to your Shuffle instance.
   - On TheHive instance, click on the "Authenticate."
@@ -849,18 +847,19 @@ To quickly recap, we set up our SOAR platform to receive our Wazuh alert. We the
     - **Type:** `"Internal"`
   - Save the workflow.
 
-  #### Modifying Cloud Firewall on DigitalOcean: ####
-   1. Log in to DigitalOcean
-   2. From the dashboard, click on the "Networking" tab.
-   3. Click on "Firewalls" to view the list of firewalls you have created.
-   4. Choose the firewall you created for your project.
-   5. Click on "Add Rule" to create a new firewall rule for inbound traffic.
-   6. **Configure the Rule:**
-   - Set the rule type to **Custom**.
-   - Set the **Ports** to `9000`.
-   - **Remove all IPv6** addresses.
-   - **Keep all IPv4** addresses.
-  7. Click the "Save" button to apply the new rule.
+#### Modifying Cloud Firewall on DigitalOcean: ####
+   
+1. Log in to DigitalOcean
+2. From the dashboard, click on the "Networking" tab.
+3. Click on "Firewalls" to view the list of firewalls you have created.
+4. Choose the firewall you created for your project.
+5. Click on "Add Rule" to create a new firewall rule for inbound traffic.
+6. ***Configure the Rule:***
+     - Set the rule type to **Custom**.
+     - Set the **Ports** to `9000`.
+     - **Remove all IPv6** addresses.
+     - **Keep all IPv4** addresses.
+7. Click the "Save" button to apply the new rule.
 
      ![99](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/d0512d34-8738-416e-bbb0-0b1c93eddd8a)
 
