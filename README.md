@@ -1,6 +1,6 @@
-# Setting Up SOC Automation with Wazuh, TheHive, and Shuffle
+# SOC Automation Environment Setup with Wazuh, TheHive, and Shuffle
 
-I successfully set up and configured a Security Operations Center (SOC) automation project, integrating Wazuh as the security monitoring tool, TheHive for case management, and Shuffle for orchestration and automation. This lab project involved creating a logical diagram of the SOC setup, implementing automation integration, and configuring automated response actions. The setup included a network environment comprising a Windows 10 client, Wazuh server, and TheHive server. The project aimed to demonstrate the automation of incident detection, enrichment, and response in a SOC environment.
+I successfully set up a Security Operations Center (SOC) with automation capabilities using Wazuh, TheHive, and Shuffle. This comprehensive setup allows for efficient security monitoring, case management, and orchestration of responses to security events. The lab is designed to be virtualized using VirtualBox on a Windows 10 host, with various components including a Windows 10 client machine equipped with Sysmon for logging, and Wazuh and TheHive servers deployed on Ubuntu in the cloud. This document provides detailed steps for setting up each component, including network design, installation guides, and configuration processes to achieve a robust SOC automation environment.
 
 ## Tools
 
@@ -293,7 +293,7 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
 
    To configure Elasticsearch, follow these steps:
 
-    - Locate the Elasticsearch configuration file at `/etc/elasticsearch/elasticsearch.yml`. Open this file using a text editor
+    - Locate the Elasticsearch configuration file at `/etc/elasticsearch/elasticsearch.yml`. Open this file using a text editor.
     - Set the `cluster_name` parameter to your desired name. Remove the comment (#) from the line.
     - Set the `node.name` or leave the value as `node-1`. Remove the comment (#).
     - Set the `network.host`. Remove the comment (#) and set the value to the public IP address of TheHive server.
@@ -307,7 +307,7 @@ To begin, we need to set up Cassandra, which is the database system that TheHive
 
        ![35](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/0676a15b-4926-445b-8018-b6b0480c645f)
 
-    - Save the changes and close the file
+    - Save the changes and close the file.
     - Start and enable the Elasticsearch service:
     
        ```bash
@@ -640,7 +640,7 @@ This is the final part of our project, where we will implement the Shuffle confi
 
 
 3. **Modify the Webhook**:
-   - Click on the **Change Me** icon and make sure the "find actions" is selected as "Repeat back to me"
+   - Click on the **Change Me** icon and make sure the "find actions" is selected as "Repeat back to me".
    - Remove **Hello World** from the **Call** section.
    - Hit the **+** button and select **Execution Argument**.
    - Then Save it.
@@ -751,7 +751,7 @@ When dealing with hash values, we need to extract the actual hash from the appen
 
    - Save the workflow.
    - Click on the person icon.
-   - Rerun the workflow
+   - Rerun the workflow.
    - Expand the virustotal output.
 
      ![87](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/7ac7567a-ddbf-4f29-ae17-e949b119d97f)
@@ -896,6 +896,7 @@ We will proceed with sending an email containing relevant information to the ana
 
 # Summary:
 
-I completed a SOC automation project integrating Wazuh, TheHive, and Shuffle. This involved setting up Wazuh on Ubuntu, configuring TheHive with Cassandra and Elasticsearch, and creating custom rules to detect threats like Mimikatz. Automation via Shuffle facilitated rapid incident response. 
+In this lab, I set up a SOC automation environment featuring Wazuh for security monitoring, TheHive for case management, and Shuffle for orchestration and automation. I used VirtualBox to create a Windows 10 virtual machine with Sysmon for event logging. Wazuh, installed on an Ubuntu server in the cloud, collects and analyzes security events from the client machine. TheHive, also on an Ubuntu server, manages cases based on alerts from Wazuh. Shuffle enriches Indicators of Compromise (IOCs) and automates responses.
 
+I configured the network, including securing our cloud servers with firewalls, and established secure connections via SSH. The installation and configuration processes involved setting up virtual machines, installing necessary software and dependencies, and configuring services to communicate and function as a cohesive SOC. Finally, I tested the setup by generating telemetry and verifying the capture and analysis of security events.
 Special thanks to [MyDFIR](https://www.youtube.com/@MyDFIR), whose tutorials was crucial in completing this project.
