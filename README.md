@@ -899,4 +899,5 @@ We will proceed with sending an email containing relevant information to the ana
 In this lab, I set up a SOC automation environment featuring Wazuh for security monitoring, TheHive for case management, and Shuffle for orchestration and automation. I used VirtualBox to create a Windows 10 virtual machine with Sysmon for event logging. Wazuh, installed on an Ubuntu server in the cloud, collects and analyzes security events from the client machine. TheHive, also on an Ubuntu server, manages cases based on alerts from Wazuh. Shuffle enriches Indicators of Compromise (IOCs) and automates responses.
 
 I configured the network, including securing our cloud servers with firewalls, and established secure connections via SSH. The installation and configuration processes involved setting up virtual machines, installing necessary software and dependencies, and configuring services to communicate and function as a cohesive SOC. Finally, I tested the setup by generating telemetry and verifying the capture and analysis of security events.
+
 Special thanks to [MyDFIR](https://www.youtube.com/@MyDFIR), whose tutorials was crucial in completing this project.
