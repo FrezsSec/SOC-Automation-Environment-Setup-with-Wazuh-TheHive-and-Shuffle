@@ -66,7 +66,7 @@ In this section, we will cover the installation steps for each component of our 
 ![9](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/37251597-a518-4c87-849a-5f4a5795a9d4)
 
 
-7. Verify that Sysmon has been installed correctly by checking the Services application.
+9. Verify that Sysmon has been installed correctly by checking the Services application.
 
 ## Setting Up Wazuh
 
@@ -119,23 +119,23 @@ To set up our Wazuh server, we'll be using DigitalOcean as our cloud provider. Y
 
 
 
-6. SSH into Your Wazuh Server. Open PowerShell on your local machine and execute the following command to SSH into your Wazuh server:
+7. SSH into Your Wazuh Server. Open PowerShell on your local machine and execute the following command to SSH into your Wazuh server:
 
    ```ssh root@your_server_ip```
   
-7. Once connected to your virtual machine via SSH, you can start by updating and upgrading the system. Since we are logged in as root, execute the following commands in your terminal:
+8. Once connected to your virtual machine via SSH, you can start by updating and upgrading the system. Since we are logged in as root, execute the following commands in your terminal:
 
    ```apt-get update && apt-get upgrade -y```
 
 ![h](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ce30915e-1ba8-4151-b16b-a831a0a25e3c)
 
-8. Once the update and upgrade process is complete, you can begin the installation of Wazuh. To get started with Wazuh, run the following curl command to download and execute the installation script:
+9. Once the update and upgrade process is complete, you can begin the installation of Wazuh. To get started with Wazuh, run the following curl command to download and execute the installation script:
 
    ```curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh && sudo bash ./wazuh-install.sh -a ```
 
 ![24](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/380964ac-2a15-49d3-8675-bf778b358900)
 
-9. Once the installation is complete, it provides a username and password to access the Wazuh Dashboard. Make sure to copy the username and your password, as you will need them to log in to your Wazuh dashboard. The installation summary will look something like this:
+10. Once the installation is complete, it provides a username and password to access the Wazuh Dashboard. Make sure to copy the username and your password, as you will need them to log in to your Wazuh dashboard. The installation summary will look something like this:
 
 ```INFO: - - Summary - -
 INFO: You can access the web interface https://<wazuh-dashboard-ip>
@@ -144,7 +144,7 @@ INFO: You can access the web interface https://<wazuh-dashboard-ip>
 INFO: Installation finished.
 ```
 
-10. Log into Wazuh: Note your server's public IP address from the DigitalOcean dashboard. Open a new browser tab and go to `https://<your-public-ip>` (make sure to use HTTPS). If you see a security certificate warning, click "Advanced" and then "Proceed." On the Wazuh login page, enter admin as the username and paste the password you saved earlier. You should now be logged into the Wazuh dashboard.
+11. Log into Wazuh: Note your server's public IP address from the DigitalOcean dashboard. Open a new browser tab and go to `https://<your-public-ip>` (make sure to use HTTPS). If you see a security certificate warning, click "Advanced" and then "Proceed." On the Wazuh login page, enter admin as the username and paste the password you saved earlier. You should now be logged into the Wazuh dashboard.
 
 ![j](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/ca786f4c-7bb9-4cfb-8f70-6f8795277278)
 
@@ -566,7 +566,7 @@ For the sake of ingestion:
       </rule>
       ```
 
-1. **Create a Custom Rule:**
+2. **Create a Custom Rule:**
     - Go back and click on **Custom Rules**.
     - You will see one local rule file `local_rules.xml`. Edit that by clicking on the pencil icon.
     - Paste the rule we copied into the local rule file (below the existing rules), paying attention to indentation.
@@ -611,7 +611,7 @@ This is the final part of our project, where we will implement the Shuffle confi
     ![64](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/f3edac56-8cca-4468-b49e-61fe43fc5a7d)
 
 
-4. **Create a New Workflow**:
+2. **Create a New Workflow**:
    - Click on **New Workflow**.
 
    ![65](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/bbe7c84c-d5e4-4ca1-9e03-849dc0d1ad26)
@@ -639,7 +639,7 @@ This is the final part of our project, where we will implement the Shuffle confi
       ![70](https://github.com/FrezsSec/Setting-Up-SOC-Automation-with-Wazuh-TheHive-and-Shuffle/assets/173344802/398ed4d0-7162-4537-95f3-0ff71a7f2e0d)
 
 
-3. **Modify the Webhook**:
+2. **Modify the Webhook**:
    - Click on the **Change Me** icon and make sure the "find actions" is selected as "Repeat back to me".
    - Remove **Hello World** from the **Call** section.
    - Hit the **+** button and select **Execution Argument**.
@@ -667,12 +667,12 @@ To integrate Wazuh with Shuffle, follow these steps:
    - We previously assigned the rule ID `100002` to our Mimikatz detection rule, so we'll reference that same number here.
    - The `alert_format` parameter indicates that alerts will be formatted in JSON.
 
-3. **Restart Wazuh Manager**:
+2. **Restart Wazuh Manager**:
    - Apply the changes by restarting the Wazuh manager:
      ```sh
      systemctl restart wazuh-manager.service
      ```
-4. **Test Mimikatz**:
+3. **Test Mimikatz**:
    - Run Mimikatz on your Windows client machine.
 
 ### Verify and Test in Shuffle
